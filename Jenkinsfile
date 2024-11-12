@@ -3,8 +3,6 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-	    	sh 'sudo apt-get update'
-		sh 'sudo apt-get install -y python3-pip'
                 sh 'python3 -m pip install pytest'
             }
         }
