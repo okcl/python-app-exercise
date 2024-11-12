@@ -1,20 +1,19 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building..'
-                sh 'python3 --version'
+                git 'https://github.com/okcl/python-app-exercise'
+            }
+        }
+        stage('Setup') {
+            steps {
+                sh 'python3 -m pip install pytest'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying..'
+                sh 'python3 -m pytest test_app.py'
             }
         }
     }
