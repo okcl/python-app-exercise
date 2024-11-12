@@ -15,17 +15,28 @@ pipeline {
         }
         
         stage('Setup Python Environment') {
-            steps {
-                // Create and activate virtual environment
+                    steps {
+                // Alternative Method 2: Using pyenv (if Method 1 doesn't work)
                 sh '''
-                    python3 -m pip install --upgrade pip
-                    python3 -m pip install virtualenv
-                    python3 -m virtualenv venv
-                    . venv/bin/activate
+                    # Install pyenv if not already installed
+                    curl https://pyenv.run | bash
+                    
+                    export PATH="$HOME/.pyenv/bin:$PATH"
+                    eval "$(pyenv init -)"
+                    
+                    # Install Python version you want
+                    pyenv install 3.9.0
+                    pyenv global 3.9.0
+                    
+                    # Create and activate virtual environment
+                    python -m venv ${VENV_PATH}
+                    . ${VENV_PATH}/bin/activate
+                    
+                    # Install requirements
                     pip install -r requirements.txt
                 '''
             }
-        }
+	}
         
         stage('Run Tests') {
             steps {
