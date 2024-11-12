@@ -1,13 +1,13 @@
-# test_app.py
-import unittest
+import pytest
 from app import add, subtract
 
-class TestApp(unittest.TestCase):
-    def test_add(self):
-        self.assertEqual(add(3, 7), 10)
+def test_add():
+    assert add(3, 7) == 10
+    assert add(-1, 1) == 0
     
-    def test_subtract(self):
-        self.assertEqual(subtract(10, 5), 5)
+def test_subtract():
+    assert subtract(10, 5) == 5
+    assert subtract(1, 1) == 0
 
 if __name__ == '__main__':
-    unittest.main()
+    pytest.main()
